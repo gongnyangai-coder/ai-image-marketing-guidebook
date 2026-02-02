@@ -1,0 +1,61 @@
+name: Build PDF with Typst
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - '**.typ'
+      - '.github/workflows/build.yml'
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Typst
+      uses: typst-community/setup-typst@v3
+      with:
+        typst-version: 'latest'
+        
+    - name: Install fonts
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y fonts-noto-cjk fonts-nanum
+        
+    - name: Build PDF
+      run: |
+        typst compile src/main.typ ai-image-marketing-guidebook.pdf
+        
+    - name: Upload PDF artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: guidebook-pdf
+        path: ai-image-marketing-guidebook.pdf
+        retention-days: 30
+        
+    - name: Create Release
+      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: v${{ github.run_number }}
+        name: Release v${{ github.run_number }}
+        body: |
+          ë§ì¼í°ë¥¼ ìí AI ì´ë¯¸ì§ ì¤ë¬´ ê°ì´ëë¶ ìë ë¹ë
+          
+          - GPT-4o, Midjourney, Nano Banana Pro íë¡¬íí¸ ê°ì´ë
+          - 200+ ì¤ë¬´ íë¡¬íí¸ ííë¦¿
+          - ìì¢ë³ ì¼ì´ì¤ ì¤í°ë
+        files: ai-image-marketing-guidebook.pdf
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
