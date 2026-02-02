@@ -30,6 +30,7 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y fonts-noto-cjk fonts-nanum
+        fc-cache -fv
         
     - name: Build PDF
       run: |
@@ -49,11 +50,11 @@ jobs:
         tag_name: v${{ github.run_number }}
         name: Release v${{ github.run_number }}
         body: |
-          ë§ì¼í°ë¥¼ ìí AI ì´ë¯¸ì§ ì¤ë¬´ ê°ì´ëë¶ ìë ë¹ë
+          AI Image Marketing Guidebook - Auto Build
           
-          - GPT-4o, Midjourney, Nano Banana Pro íë¡¬íí¸ ê°ì´ë
-          - 200+ ì¤ë¬´ íë¡¬íí¸ ííë¦¿
-          - ìì¢ë³ ì¼ì´ì¤ ì¤í°ë
+          - GPT-4o, Midjourney, Nano Banana Pro Prompt Guide
+          - 200+ Practical Prompt Templates
+          - Industry Case Studies
         files: ai-image-marketing-guidebook.pdf
         draft: false
         prerelease: false
