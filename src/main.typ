@@ -12,29 +12,25 @@
   paper: "a4",
   margin: (x: 2cm, y: 2.5cm),
   header: context {
-    if counter(page).get().first() > 1 {
-      [
-        #set text(size: 9pt, fill: gray)
-        #h(1fr)
-        _ë§ì¼í°ë¥¼ ìí AI ì´ë¯¸ì§ ì¤ë¬´ ê°ì´ëë¶_
-        #h(1fr)
-      ]
-    }
+    if counter(page).get().first() > 1 [
+      #set text(size: 9pt, fill: gray)
+      #h(1fr)
+      _ë§ì¼í°ë¥¼ ìí AI ì´ë¯¸ì§ ì¤ë¬´ ê°ì´ëë¶_
+      #h(1fr)
+    ]
   },
   footer: context {
-    if counter(page).get().first() > 1 {
-      [
-        #set text(size: 9pt)
-        #h(1fr)
-        #counter(page).display("1")
-        #h(1fr)
-      ]
-    }
+    if counter(page).get().first() > 1 [
+      #set text(size: 9pt)
+      #h(1fr)
+      #counter(page).display("1")
+      #h(1fr)
+    ]
   },
 )
 
 #set text(
-  font: ("Pretendard", "Noto Sans KR", "Apple SD Gothic Neo", "sans-serif"),
+  font: "Noto Sans CJK KR",
   size: 10.5pt,
   lang: "ko",
 )
